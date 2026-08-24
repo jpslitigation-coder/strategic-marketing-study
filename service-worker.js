@@ -1,5 +1,5 @@
 /* Strategic Marketing Study Dossier — offline service worker */
-const CACHE = 'sm-dossier-v3';
+const CACHE = 'sm-dossier-v4';
 const ASSETS = [
   'index.html',
   'section-1-intro.html',
@@ -14,6 +14,7 @@ const ASSETS = [
   'styles.css',
   'data.js',
   'notes-data.js',
+  'master-depth-data.js',
   'notes.js',
   'app.js',
   'manifest.webmanifest',

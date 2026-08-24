@@ -371,6 +371,11 @@ table.data tr:nth-child(even) td{background:#faf9f4}
 }
 
 /* ============ PRINT ============ */
+/* Deep-note reading refinements */
+.exam-blueprint-label{font-family:'Space Mono',monospace;font-size:.7rem;font-weight:700;letter-spacing:.11em;text-transform:uppercase;color:var(--amber-deep);margin-bottom:.35rem}
+.deep-note strong{color:var(--ink)}
+.deep-matrix td:first-child{font-weight:700;color:var(--ink)}
+
 @media print{
   @page{margin:15mm}
   .topbar,.navtoggle,.foot,.spine,.btn-row,.flash-controls,.quiz-actions,
