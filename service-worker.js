@@ -1,5 +1,5 @@
 /* Strategic Marketing Study Dossier — offline service worker */
-const CACHE = 'sm-dossier-v6';
+const CACHE = 'sm-dossier-v7';
 const ASSETS = [
   'index.html',
   'section-1-intro.html',
@@ -12,27 +12,27 @@ const ASSETS = [
   'calendar.html',
   'deep-notes.html',
   'revision-sheets.html',
-  'styles.css?v=6',
-  'revision-sheets.css?v=6',
-  'data.js?v=6',
-  'assessment-data.js?v=6',
-  'notes-data.js?v=6',
-  'master-depth-data.js?v=6',
-  'notes.js?v=6',
-  'app.js?v=6',
-  'revision-sheets.js?v=6',
+  'styles.css?v=7',
+  'revision-sheets.css?v=7',
+  'data.js?v=7',
+  'assessment-data.js?v=7',
+  'notes-data.js?v=7',
+  'master-depth-data.js?v=7',
+  'notes.js?v=7',
+  'app.js?v=7',
+  'revision-sheets.js?v=7',
   'manifest.webmanifest',
   'icons/icon-192.png',
   'icons/icon-512.png',
   'icons/icon-maskable-512.png',
   'icons/icon-180.png',
   'icons/favicon-64.png',
-  'images/revision-journey.png'
+  'images/revision-journey.png?v=7'
 ];
 
 self.addEventListener('install', (e) => {
   e.waitUntil(
-    caches.open(CACHE).then((c) => c.addAll(ASSETS))
+    caches.open(CACHE).then((c) => c.addAll(ASSETS)).then(() => self.skipWaiting())
   );
 });
 
@@ -45,13 +45,30 @@ self.addEventListener('activate', (e) => {
     caches.keys().then((keys) =>
       Promise.all(keys.filter((k) => k !== CACHE).map((k) => caches.delete(k)))
     ).then(() => self.clients.claim())
+      .then(() => self.clients.matchAll({type:'window'}))
+      .then((clients) => Promise.all(clients.map((client) =>
+        client.navigate(client.url).catch(() => null)
+      )))
   );
 });
 
-// Cache-first, fall back to network, then to index for navigations (offline-safe).
+// Always check the network for pages so an installed app cannot remain trapped
+// on stale HTML. Versioned static assets remain cache-first and offline-safe.
 self.addEventListener('fetch', (e) => {
   const req = e.request;
   if (req.method !== 'GET') return;
+  if (req.mode === 'navigate') {
+    e.respondWith(
+      fetch(req)
+        .then((res) => {
+          const copy = res.clone();
+          caches.open(CACHE).then((c) => c.put(req, copy)).catch(() => {});
+          return res;
+        })
+        .catch(() => caches.match(req).then((hit) => hit || caches.match('index.html')))
+    );
+    return;
+  }
   e.respondWith(
     caches.match(req).then((hit) => {
       if (hit) return hit;
@@ -61,9 +78,7 @@ self.addEventListener('fetch', (e) => {
           caches.open(CACHE).then((c) => c.put(req, copy)).catch(() => {});
           return res;
         })
-        .catch(() => {
-          if (req.mode === 'navigate') return caches.match('index.html');
-        });
+        .catch(() => undefined);
     })
   );
 });
