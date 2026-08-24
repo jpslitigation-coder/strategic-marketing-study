@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Flashcards — Strategic Marketing</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <meta name="theme-color" content="#151b2e">
+  <link rel="apple-touch-icon" href="icons/icon-180.png">
+  <link rel="icon" type="image/png" href="icons/favicon-64.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="SM Dossier">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="topbar"><div class="inner">
+  <a class="brand" href="index.html"><span class="mark"></span><span class="btxt"><b>Strategic Marketing</b><span class="sub">MBA · Study Dossier</span></span></a>
+  <button class="navtoggle" aria-label="Menu">☰</button>
+  <nav class="navlinks">
+    <a href="index.html">Overview</a>
+    <a href="section-1-intro.html">1·Intro</a>
+    <a href="section-2-ethics.html">2·Ethics</a>
+    <a href="section-3-markets.html">3·Markets</a>
+    <a href="section-4-strategies.html">4·Strategies</a>
+    <a href="section-5-implementation.html">5·Implement</a>
+    <a href="flashcards.html">Flashcards</a>
+    <a href="tests.html">Tests</a>
+    <a href="calendar.html">30-Day Plan</a>
+  </nav>
+</div></header>
+
+<main class="wrap">
+  <div class="page-head">
+    <div class="tab">Study tool</div>
+    <h1>Flashcards</h1>
+    <p class="lead">Every key term and framework in one deck. Tap to flip, filter by section, shuffle to test recall — or print for a paper set (answers reveal automatically).</p>
+  </div>
+
+  <div class="flash-controls">
+    <div class="pill-row" data-flashfilter style="margin:0"></div>
+  </div>
+  <div class="flash-controls">
+    <button class="btn btn-amber btn-sm" data-shuffle>🔀 Shuffle</button>
+    <button class="btn btn-dark btn-sm" data-flipall>Flip all</button>
+    <button class="btn btn-ghost btn-sm" style="color:var(--ink);border-color:var(--line-strong)" onclick="window.print()">🖨 Print deck</button>
+  </div>
+
+  <div class="flash-deck" data-flashdeck=""></div>
+
+  <div class="callbar" style="margin-top:2rem">
+    <span class="t">Ready to test deeper? Take the mini knowledge tests and attempt the exam-style questions.</span>
+    <a class="btn btn-dark btn-sm" href="tests.html">Go to tests →</a>
+  </div>
+</main>
+
+<footer class="foot"><div class="inner">
+  <div><h5>Study Dossier</h5><p style="font-size:.85rem">Full flashcard deck for MBA Strategic Marketing Management.</p></div>
+  <div><h5>Sections</h5><a href="section-1-intro.html">1 · Introduction</a><a href="section-2-ethics.html">2 · Ethics &amp; CSR</a><a href="section-3-markets.html">3 · Markets &amp; Segments</a><a href="section-4-strategies.html">4 · Selecting Strategies</a><a href="section-5-implementation.html">5 · Implementation</a></div>
+  <div><h5>Study tools</h5><a href="flashcards.html">Flashcards</a><a href="tests.html">Tests &amp; model answers</a><a href="calendar.html">30-day plan</a></div>
+  <div class="fine">Study aid for personal exam preparation · paraphrases the prescribed study guide and texts.</div>
+</div></footer>
+
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

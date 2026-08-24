@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>30-Day Study Plan — Strategic Marketing</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <meta name="theme-color" content="#151b2e">
+  <link rel="apple-touch-icon" href="icons/icon-180.png">
+  <link rel="icon" type="image/png" href="icons/favicon-64.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="SM Dossier">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="topbar"><div class="inner">
+  <a class="brand" href="index.html"><span class="mark"></span><span class="btxt"><b>Strategic Marketing</b><span class="sub">MBA · Study Dossier</span></span></a>
+  <button class="navtoggle" aria-label="Menu">☰</button>
+  <nav class="navlinks">
+    <a href="index.html">Overview</a>
+    <a href="section-1-intro.html">1·Intro</a>
+    <a href="section-2-ethics.html">2·Ethics</a>
+    <a href="section-3-markets.html">3·Markets</a>
+    <a href="section-4-strategies.html">4·Strategies</a>
+    <a href="section-5-implementation.html">5·Implement</a>
+    <a href="flashcards.html">Flashcards</a>
+    <a href="tests.html">Tests</a>
+    <a href="calendar.html">30-Day Plan</a>
+  </nav>
+</div></header>
+
+<main class="wrap">
+  <div class="page-head">
+    <div class="tab">Your roadmap</div>
+    <h1>The 30-day study plan</h1>
+    <p class="lead">A day-by-day route through all five sections and the exam. Each day tells you what to read in the <strong>study guide</strong> and <strong>textbook</strong>, and what to do. Tick a day off and your progress saves automatically in this browser.</p>
+  </div>
+
+  <div class="progress-panel">
+    <div class="ring" style="--p:0"><b>0%</b></div>
+    <div class="pmeta">
+      <h3>Progress to exam-ready</h3>
+      <p data-doncount>0 of 30 days complete</p>
+      <div class="barwrap"><div class="bar"></div></div>
+    </div>
+    <div style="display:flex;gap:.6rem;flex-wrap:wrap">
+      <button class="btn btn-ghost btn-sm" onclick="window.print()">🖨 Print plan</button>
+      <button class="btn btn-amber btn-sm" data-resetdays>Reset progress</button>
+    </div>
+  </div>
+
+  <div class="callbar" style="margin-top:1.6rem">
+    <span class="t">📚 Textbook keys — <strong>HOOLEY</strong>: Hooley et al. (2020) 7e · <strong>CP</strong>: Cravens &amp; Piercy (2013) 10e · <strong>WM</strong>: Walker &amp; Mullins (2014) · <strong>JOOSTE</strong>: Jooste et al. (2012). "Guide" page numbers refer to the Regenesys study guide.</span>
+  </div>
+
+  <div data-calendar></div>
+
+  <div class="block" style="margin-top:2rem">
+    <div class="eyebrow">Pace &amp; flexibility</div>
+    <h3 style="margin-top:.3rem">Adjust to your schedule</h3>
+    <p class="muted">The plan front-loads the two heaviest sections (3.5 and 3.6, 40 notional hours each) into the middle and end. If you have less than the ~4–6 hours a day shown, spread each week across more calendar days — the order still holds: <strong>Understand → Select → Implement</strong>, with Ethics woven in early. Reserve <strong>Day 30</strong> for a full timed run of the mini-tests and two exam answers.</p>
+  </div>
+</main>
+
+<footer class="foot"><div class="inner">
+  <div><h5>Study Dossier</h5><p style="font-size:.85rem">A 30-day path to the MBA Strategic Marketing Management exam.</p></div>
+  <div><h5>Sections</h5><a href="section-1-intro.html">1 · Introduction</a><a href="section-2-ethics.html">2 · Ethics &amp; CSR</a><a href="section-3-markets.html">3 · Markets &amp; Segments</a><a href="section-4-strategies.html">4 · Selecting Strategies</a><a href="section-5-implementation.html">5 · Implementation</a></div>
+  <div><h5>Study tools</h5><a href="flashcards.html">Flashcards</a><a href="tests.html">Tests &amp; model answers</a><a href="calendar.html">30-day plan</a></div>
+  <div class="fine">Notional hours follow the study guide; always confirm reading against your official schedule.</div>
+</div></footer>
+
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

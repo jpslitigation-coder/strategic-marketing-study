@@ -1,0 +1,18 @@
+(function(){
+  'use strict';
+  const notes=window.SM_NOTES||[], sections=(window.SM&&window.SM.SECTIONS)||{};
+  const params=new URLSearchParams(location.search), noteId=params.get('note'), requested=params.get('section');
+  const view=document.getElementById('notes-view'), title=document.getElementById('notes-title'), lead=document.getElementById('notes-lead'), filters=document.getElementById('notes-filter');
+  const esc=s=>String(s||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const sectionLink=sec=>sections[sec]?sections[sec].file:'index.html';
+  filters.innerHTML='<a class="filter-pill'+(!requested?' active':'')+'" href="deep-notes.html">All notes</a>'+Object.entries(sections).map(([id,s])=>'<a class="filter-pill'+(requested===id?' active':'')+'" href="deep-notes.html?section='+id+'">'+esc(s.tab)+'</a>').join('');
+  const selected=notes.find(n=>n.id===noteId);
+  if(selected){
+    const sec=sections[selected.sec]||{}; document.title=selected.title+' · Deep Notes'; title.textContent=selected.title; lead.textContent=selected.summary; filters.hidden=true;
+    view.innerHTML='<article class="deep-note"><div class="note-meta"><span class="hours-chip">⏱ '+esc(selected.time)+'</span><span class="chip">'+esc(selected.chapters)+'</span></div><nav class="note-crumb"><a href="'+sectionLink(selected.sec)+'">'+esc(sec.tab)+' '+esc(sec.title)+'</a><span>›</span><a href="deep-notes.html?section='+esc(selected.sec)+'">Deep Notes</a></nav><section><h2>Core explanation</h2><div class="define"><span class="term">Definition</span>'+esc(selected.definition)+'</div></section><section><h2>How the concept works</h2><ol class="deep-steps">'+selected.points.map((p,i)=>'<li><span>'+(i+1)+'</span><p>'+esc(p)+'</p></li>').join('')+'</ol></section><div class="two-col"><section class="block"><h3>Apply it in an exam</h3><p>'+esc(selected.application)+'</p></section><section class="block"><h3>Worked application</h3><p>'+esc(selected.example)+'</p></section></div><div class="exam-tip"><span class="lbl">Common mistake</span>'+esc(selected.trap)+'</div><div class="mnemonic"><span class="lbl">Memory hook</span><div class="key">'+esc(selected.memory)+'</div></div><div class="next-prev"><a class="prev" href="'+sectionLink(selected.sec)+'"><div class="dir">◂ Quick revision</div><div class="ttl">'+esc(sec.title)+'</div></a><a class="next" href="deep-notes.html?section='+esc(selected.sec)+'"><div class="dir">More detailed notes ▸</div><div class="ttl">Section '+esc(sec.tab)+'</div></a></div></article>';
+    return;
+  }
+  const list=requested?notes.filter(n=>n.sec===requested):notes;
+  if(requested&&sections[requested]){ title.textContent=sections[requested].title+' · Deep Notes'; lead.textContent='Choose a concept for a fuller explanation, application and exam guidance.'; }
+  view.innerHTML='<div class="note-grid">'+list.map(n=>'<article class="note-card"><div class="note-card-meta"><span>'+esc((sections[n.sec]||{}).tab)+'</span><span>'+esc(n.time)+'</span></div><h2>'+esc(n.title)+'</h2><p>'+esc(n.summary)+'</p><div class="source-line">'+esc(n.chapters)+'</div><a class="btn btn-dark btn-sm" href="deep-notes.html?note='+encodeURIComponent(n.id)+'">Open detailed note →</a></article>').join('')+'</div>'+(requested?'<div class="callbar"><div class="t">Return to the concise section when you are ready to test recall.</div><a class="btn btn-ghost btn-sm" style="color:var(--ink);border-color:var(--line-strong)" href="'+sectionLink(requested)+'">Back to quick revision</a></div>':'');
+})();
