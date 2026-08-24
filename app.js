@@ -223,16 +223,19 @@
 
   /* ---------- PWA: offline + install ---------- */
   function initPWA(){
-    var release='7';
+    var release='8';
     var seenRelease=localStorage.getItem('sm_release');
     if(seenRelease!==release){
       localStorage.setItem('sm_release',release);
       var released=document.createElement('div');
       released.className='update-notice';
       released.setAttribute('role','status');
-      released.innerHTML='<p><strong>Updated to Release 7</strong>The visual revision sheets and the latest study content are ready.</p><button class="btn btn-amber btn-sm" type="button">Got it</button>';
+      released.innerHTML='<p><strong>Updated to Release 8</strong>All six visual revision sheets have been redesigned for mobile, desktop and printing.</p><button class="btn btn-amber btn-sm" type="button">Got it</button>';
       document.body.appendChild(released);
-      released.querySelector('button').addEventListener('click',function(){ released.remove(); });
+      var releaseTimer=window.setTimeout(function(){ if(released.isConnected) released.remove(); },8000);
+      released.querySelector('button').addEventListener('click',function(){
+        window.clearTimeout(releaseTimer); released.remove();
+      });
     }
     // Register the service worker (works over http/https; ignored on file://).
     if('serviceWorker' in navigator && location.protocol.startsWith('http')){

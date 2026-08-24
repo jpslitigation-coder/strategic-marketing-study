@@ -1,5 +1,5 @@
 /* Strategic Marketing Study Dossier — offline service worker */
-const CACHE = 'sm-dossier-v7';
+const CACHE = 'sm-dossier-v8';
 const ASSETS = [
   'index.html',
   'section-1-intro.html',
@@ -13,21 +13,21 @@ const ASSETS = [
   'deep-notes.html',
   'revision-sheets.html',
   'styles.css?v=7',
-  'revision-sheets.css?v=7',
+  'revision-sheets.css?v=8',
   'data.js?v=7',
   'assessment-data.js?v=7',
   'notes-data.js?v=7',
   'master-depth-data.js?v=7',
   'notes.js?v=7',
-  'app.js?v=7',
-  'revision-sheets.js?v=7',
+  'app.js?v=8',
+  'revision-sheets.js?v=8',
   'manifest.webmanifest',
   'icons/icon-192.png',
   'icons/icon-512.png',
   'icons/icon-maskable-512.png',
   'icons/icon-180.png',
   'icons/favicon-64.png',
-  'images/revision-journey.png?v=7'
+  'revision-journey.png?v=8'
 ];
 
 self.addEventListener('install', (e) => {
