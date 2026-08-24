@@ -1,5 +1,5 @@
 /* Strategic Marketing Study Dossier — offline service worker */
-const CACHE = 'sm-dossier-v4';
+const CACHE = 'sm-dossier-v5';
 const ASSETS = [
   'index.html',
   'section-1-intro.html',
@@ -13,6 +13,7 @@ const ASSETS = [
   'deep-notes.html',
   'styles.css',
   'data.js',
+  'assessment-data.js',
   'notes-data.js',
   'master-depth-data.js',
   'notes.js',
@@ -27,8 +28,12 @@ const ASSETS = [
 
 self.addEventListener('install', (e) => {
   e.waitUntil(
-    caches.open(CACHE).then((c) => c.addAll(ASSETS)).then(() => self.skipWaiting())
+    caches.open(CACHE).then((c) => c.addAll(ASSETS))
   );
+});
+
+self.addEventListener('message', (e) => {
+  if (e.data && e.data.type === 'SKIP_WAITING') self.skipWaiting();
 });
 
 self.addEventListener('activate', (e) => {

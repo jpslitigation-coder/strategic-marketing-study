@@ -146,7 +146,7 @@
       const s=D.SECTIONS[e.sec]; const label=s?`${s.tab} ${s.title}`:'';
       return `<details class="qa">
         <summary><span class="qtag">${e.tag}</span><span>${e.q}</span><span class="marks">${e.marks}</span></summary>
-        <div class="answer"><div class="chip" style="margin:.9rem 0 .2rem">${label}</div>${e.model}</div>
+        <div class="answer"><div class="chip" style="margin:.9rem 0 .2rem">${e.type?e.type+' · ':''}${label}</div>${e.source?`<div class="answer-source"><strong>Source direction:</strong> ${e.source}</div>`:''}${e.model}</div>
       </details>`;
     }).join('');
     const openAll=document.querySelector('[data-examopen]');
@@ -226,7 +226,35 @@
     // Register the service worker (works over http/https; ignored on file://).
     if('serviceWorker' in navigator && location.protocol.startsWith('http')){
       window.addEventListener('load',function(){
-        navigator.serviceWorker.register('service-worker.js').catch(function(){});
+        var refreshing=false;
+        var notice=document.createElement('div');
+        notice.className='update-notice'; notice.hidden=true;
+        notice.setAttribute('role','status');
+        notice.innerHTML='<p><strong>New study content is available</strong>Update now to get the latest deep dives, sources and exam material.</p><button class="btn btn-amber btn-sm" type="button">Update now</button>';
+        document.body.appendChild(notice);
+        function offerUpdate(worker){
+          if(!worker) return;
+          notice.hidden=false;
+          notice.querySelector('button').onclick=function(){
+            this.disabled=true; this.textContent='Updating…';
+            worker.postMessage({type:'SKIP_WAITING'});
+          };
+        }
+        navigator.serviceWorker.addEventListener('controllerchange',function(){
+          if(refreshing) return; refreshing=true; location.reload();
+        });
+        navigator.serviceWorker.register('service-worker.js').then(function(reg){
+          if(reg.waiting) offerUpdate(reg.waiting);
+          reg.addEventListener('updatefound',function(){
+            var fresh=reg.installing;
+            if(!fresh) return;
+            fresh.addEventListener('statechange',function(){
+              if(fresh.state==='installed' && navigator.serviceWorker.controller) offerUpdate(fresh);
+            });
+          });
+          // Check at each visit instead of waiting for the browser's periodic check.
+          reg.update().catch(function(){});
+        }).catch(function(){});
       });
     }
     // Custom install button that appears only when the browser offers install.
