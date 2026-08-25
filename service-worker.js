@@ -1,5 +1,5 @@
 /* Strategic Marketing Study Dossier — offline service worker */
-const CACHE = 'sm-dossier-v9-1';
+const CACHE = 'sm-dossier-v9-2';
 const ASSETS = [
   'index.html',
   'section-1-intro.html',
@@ -23,7 +23,7 @@ const ASSETS = [
   'notes.js?v=9',
   'practice-data.js?v=9',
   'practice.js?v=9.1',
-  'app.js?v=9',
+  'app.js?v=9.2',
   'revision-sheets.js?v=8',
   'manifest.webmanifest',
   'icons/icon-192.png',
@@ -36,7 +36,7 @@ const ASSETS = [
 
 self.addEventListener('install', (e) => {
   e.waitUntil(
-    caches.open(CACHE).then((c) => c.addAll(ASSETS)).then(() => self.skipWaiting())
+    caches.open(CACHE).then((c) => c.addAll(ASSETS))
   );
 });
 
@@ -49,10 +49,6 @@ self.addEventListener('activate', (e) => {
     caches.keys().then((keys) =>
       Promise.all(keys.filter((k) => k !== CACHE).map((k) => caches.delete(k)))
     ).then(() => self.clients.claim())
-      .then(() => self.clients.matchAll({type:'window'}))
-      .then((clients) => Promise.all(clients.map((client) =>
-        client.navigate(client.url).catch(() => null)
-      )))
   );
 });
 

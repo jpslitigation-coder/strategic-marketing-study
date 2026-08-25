@@ -241,6 +241,7 @@
     if('serviceWorker' in navigator && location.protocol.startsWith('http')){
       window.addEventListener('load',function(){
         var refreshing=false;
+        var refreshRequested=false;
         var notice=document.createElement('div');
         notice.className='update-notice'; notice.hidden=true;
         notice.setAttribute('role','status');
@@ -251,11 +252,21 @@
           notice.hidden=false;
           notice.querySelector('button').onclick=function(){
             this.disabled=true; this.textContent='Updating…';
+            refreshRequested=true;
+            try{sessionStorage.setItem('sm_sw_refresh','1');}catch(e){}
             worker.postMessage({type:'SKIP_WAITING'});
           };
         }
         navigator.serviceWorker.addEventListener('controllerchange',function(){
-          if(refreshing) return; refreshing=true; location.reload();
+          var savedRequest=false;
+          try{savedRequest=sessionStorage.getItem('sm_sw_refresh')==='1';}catch(e){}
+          if(refreshing||(!refreshRequested&&!savedRequest)) return;
+          refreshing=true;
+          try{sessionStorage.removeItem('sm_sw_refresh');}catch(e){}
+          // Firefox can report corrupted content when two reloads race during
+          // service-worker activation. Wait for control to settle, then make
+          // exactly one history-safe refresh from the page.
+          window.setTimeout(function(){window.location.replace(window.location.href);},400);
         });
         navigator.serviceWorker.register('service-worker.js').then(function(reg){
           if(reg.waiting) offerUpdate(reg.waiting);
