@@ -192,9 +192,9 @@
 
   function renderLadderNav(active){
     ladderNav.innerHTML=PD.ladders.map(function(l){return '<button type="button" role="tab" data-ladder="'+l.id+'" aria-selected="'+(l.id===active?'true':'false')+'"><span>'+esc(l.tab)+'</span>'+esc(l.short)+'</button>';}).join('');
-    ladderNav.querySelectorAll('[data-ladder]').forEach(function(button){button.addEventListener('click',function(){renderLadder(button.getAttribute('data-ladder'));});});
+    ladderNav.querySelectorAll('[data-ladder]').forEach(function(button){button.addEventListener('click',function(){renderLadder(button.getAttribute('data-ladder'),null,true);});});
   }
-  function renderLadder(id,openLevel){
+  function renderLadder(id,openLevel,updateUrl){
     var ladder=PD.ladders.find(function(l){return l.id===id;})||PD.ladders[0];
     var progress=state.ladders[ladder.id]||{};
     renderLadderNav(ladder.id);
@@ -208,10 +208,10 @@
         root.querySelector('[data-ladder-model-panel]').innerHTML='<div class="step-model"><h4>Model reasoning</h4>'+step.model+'<h4>Use this rubric</h4><ul class="model-rubric">'+step.rubric.map(function(x){return '<li>'+esc(x)+'</li>';}).join('')+'</ul><div class="source-actions"><a href="'+ladder.deep+'">Open linked deep note</a><a href="'+(D.SECTIONS[ladder.sec]?D.SECTIONS[ladder.sec].file+'#cards':'flashcards.html')+'">Related flashcards</a><a href="tests.html'+(ladder.id==='exam'?'#exam':'')+'">Related tests</a></div></div>';
         var actions=root.querySelector('.item-actions');
         actions.innerHTML='<button class="btn btn-review btn-sm" type="button" data-ladder-grade="0">Needs work</button><button class="btn btn-solid btn-sm" type="button" data-ladder-grade="1">Meets the rubric</button>';
-        actions.querySelectorAll('[data-ladder-grade]').forEach(function(button){button.addEventListener('click',function(){var correct=button.getAttribute('data-ladder-grade')==='1';state.ladders[ladder.id]=state.ladders[ladder.id]||{};state.ladders[ladder.id][level]=correct;updateRecord({id:'ladder:'+ladder.id+':'+level,sec:ladder.sec},correct,'ladder');write();renderLadder(ladder.id,level);});});
+        actions.querySelectorAll('[data-ladder-grade]').forEach(function(button){button.addEventListener('click',function(){var correct=button.getAttribute('data-ladder-grade')==='1';state.ladders[ladder.id]=state.ladders[ladder.id]||{};state.ladders[ladder.id][level]=correct;updateRecord({id:'ladder:'+ladder.id+':'+level,sec:ladder.sec},correct,'ladder');write();renderLadder(ladder.id,level,true);});});
       });
     });
-    var nextUrl='?ladder='+ladder.id+'#ladders';history.replaceState(null,'',nextUrl);
+    if(updateUrl){var nextUrl='?ladder='+ladder.id+'#ladders';history.replaceState(null,'',nextUrl);}
   }
 
   startButton.addEventListener('click',function(){if(state.active&&state.active.position<state.active.items.length)renderSession();else startNewSession();document.getElementById('dailySession').scrollIntoView({behavior:'smooth',block:'start'});});
@@ -219,6 +219,6 @@
 
   renderStats();
   var requested=new URLSearchParams(location.search).get('ladder');
-  renderLadder(requested||PD.ladders[0].id);
+  renderLadder(requested||PD.ladders[0].id,null,false);
   if(state.active&&state.active.position<state.active.items.length){startButton.textContent='Resume current session →';renderSession();}
 })();
