@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Adaptive Practice · Strategic Marketing</title>
+  <meta name="description" content="Adaptive Strategic Marketing study sessions and five-step application ladders for durable recall, case analysis and exam judgement.">
+  <link rel="manifest" href="manifest.webmanifest">
+  <meta name="theme-color" content="#151b2e">
+  <link rel="icon" type="image/png" href="icons/favicon-64.png">
+  <link rel="stylesheet" href="styles.css?v=9">
+  <link rel="stylesheet" href="practice.css?v=9">
+</head>
+<body>
+<header class="topbar"><div class="inner">
+  <a class="brand" href="index.html"><span class="mark"></span><span class="btxt"><b>Strategic Marketing</b><span class="sub">MBA · Study Dossier</span></span></a>
+  <button class="navtoggle" aria-label="Menu">☰</button>
+  <nav class="navlinks" aria-label="Primary">
+    <a href="index.html">Overview</a><a href="section-1-intro.html">1·Intro</a><a href="section-2-ethics.html">2·Ethics</a><a href="section-3-markets.html">3·Markets</a><a href="section-4-strategies.html">4·Strategies</a><a href="section-5-implementation.html">5·Implement</a><a href="deep-notes.html">Deep Notes</a><a href="revision-sheets.html">Revision Sheets</a><a href="practice.html" aria-current="page">Practice</a><a href="flashcards.html">Flashcards</a><a href="tests.html">Tests</a>
+  </nav>
+</div></header>
+
+<main class="practice-wrap">
+  <section class="practice-hero">
+    <div>
+      <span class="tab">Adaptive practice · Release 9</span>
+      <h1>Retrieve. Apply. Correct. Return.</h1>
+      <p class="lead">A focused daily session that prioritises weaker material, plus six application ladders that move from accurate recall to master’s-level judgement.</p>
+      <div class="practice-actions">
+        <button class="btn btn-amber" id="startSession" type="button">Start today’s session →</button>
+        <a class="btn btn-ghost practice-ghost" href="#ladders">Choose an application ladder</a>
+      </div>
+    </div>
+    <div class="practice-cycle" aria-label="Five stages in the adaptive study cycle">
+      <div><b>1</b><span>Retrieve</span><small>Answer before revealing</small></div>
+      <div><b>2</b><span>Apply</span><small>Use theory in context</small></div>
+      <div><b>3</b><span>Correct</span><small>Repair the reasoning</small></div>
+      <div><b>4</b><span>Schedule</span><small>Weak items return sooner</small></div>
+      <div><b>5</b><span>Transfer</span><small>Reach unfamiliar cases</small></div>
+    </div>
+  </section>
+
+  <section class="practice-dashboard" aria-labelledby="dashboardTitle">
+    <div class="dashboard-head">
+      <div><span class="eyebrow">Your learning evidence</span><h2 id="dashboardTitle">Practice dashboard</h2></div>
+      <button class="text-button" id="resetPractice" type="button">Reset practice progress</button>
+    </div>
+    <div class="practice-stats" id="practiceStats" aria-live="polite"></div>
+  </section>
+
+  <section class="session-shell" id="dailySession" aria-labelledby="sessionTitle">
+    <div class="session-intro" id="sessionIntro">
+      <span class="eyebrow">20–25 minutes</span>
+      <h2 id="sessionTitle">Today’s adaptive session</h2>
+      <p>The session mixes retrieval, applied questions and one higher-order task. Incorrect material returns sooner; consistently correct material is spaced further apart.</p>
+      <ul class="session-recipe">
+        <li><b>5</b> targeted flashcards</li><li><b>2</b> applied questions</li><li><b>2</b> application tasks</li>
+      </ul>
+    </div>
+    <div id="sessionView" aria-live="polite"></div>
+  </section>
+
+  <section class="ladder-library" id="ladders" aria-labelledby="ladderTitle">
+    <div class="ladder-head">
+      <div><span class="eyebrow">Six guided pathways</span><h2 id="ladderTitle">Application ladders</h2><p>Work upward: recall → distinguish → diagnose → apply → evaluate. Write your response before revealing the model reasoning.</p></div>
+    </div>
+    <nav class="ladder-nav" id="ladderNav" aria-label="Choose an application ladder"></nav>
+    <div id="ladderView"></div>
+  </section>
+</main>
+
+<footer class="foot"><div class="inner">
+  <div><h5>Adaptive Practice</h5><p>Your session history is stored only in this browser. No account or internet connection is required after installation.</p></div>
+  <div><h5>Study tools</h5><a href="deep-notes.html">Deep Notes</a><a href="revision-sheets.html">Revision Sheets</a><a href="tests.html">Tests &amp; model answers</a></div>
+  <div class="fine">Model responses are study scaffolds. Support formal assessment answers with the prescribed source material and your own case evidence.</div>
+</div></footer>
+
+<script src="data.js?v=7"></script>
+<script src="assessment-data.js?v=7"></script>
+<script src="practice-data.js?v=9"></script>
+<script src="app.js?v=9"></script>
+<script src="practice.js?v=9"></script>
+</body>
+</html>

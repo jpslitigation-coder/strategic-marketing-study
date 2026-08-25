@@ -99,7 +99,7 @@ p{margin:.5em 0 1em}
   padding:.4rem .6rem;border-radius:7px;letter-spacing:.01em;
 }
 .navlinks a:hover{background:var(--ink-3);color:#fff}
-.navlinks a.active{background:var(--amber);color:var(--ink)}
+.navlinks a.active,.navlinks a[aria-current="page"]{background:var(--amber);color:var(--ink)}
 .navtoggle{display:none;background:var(--ink-3);border:0;color:#fff;padding:.45rem .6rem;border-radius:7px;font-size:1.1rem;cursor:pointer}
 
 /* ============ LAYOUT ============ */
